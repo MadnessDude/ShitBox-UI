@@ -129,7 +129,7 @@ $WPFUIMusStat.Text = "🔊"
 # Added 26.02.18
 # 
 
-$WPFUIWELC.text = "Welcome: $env:USERNAME"
+$WPFUIWELC.text = "Welcome $env:USERNAME"
 
 # Buttons
 # Added 25.02.18
