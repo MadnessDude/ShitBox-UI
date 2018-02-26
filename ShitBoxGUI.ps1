@@ -28,6 +28,7 @@ $inputXML = @"
         <Button x:Name="MusButP" Content="Play" HorizontalAlignment="Left" Margin="70,270,0,0" VerticalAlignment="Top" Width="31" Grid.ColumnSpan="2"/>
         <Label Content="© ShitBox Crew 2018" HorizontalAlignment="Left" Margin="52,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.3,-0.025" Grid.ColumnSpan="2" Width="132" Height="29"/>
         <TextBlock x:Name="UIMusStat" HorizontalAlignment="Left" Margin="18,272,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBlock x:Name="UIWELC" HorizontalAlignment="Left" Margin="45,146,0,0" TextWrapping="Wrap" Text="Welcome:" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="179"/>
 
 
     </Grid>
@@ -123,6 +124,12 @@ $MusicPlayer.SoundLocation="$PSScriptRoot\CORE_SHITBOXUI.wav";
 $MusicPlayer.PlayLooping()
 $flag=$false;
 $WPFUIMusStat.Text = "🔊"
+
+# Welcome Code
+# Added 26.02.18
+# 
+
+$WPFUIWELC.text = "Welcome: $env:COMPUTERNAME"
 
 # Buttons
 # Added 25.02.18
