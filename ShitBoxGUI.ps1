@@ -1,4 +1,7 @@
-﻿# Comment For Test! (18:01)
+﻿# GitHub Sync
+# Added 26.02.18
+#
+
 # XML Raw Data Input:
 # Added 25.02.18
 # PUT XML between the @" "@
