@@ -22,7 +22,7 @@ $inputXML = @"
         </Grid.ColumnDefinitions>
         <Image x:Name="UIPicture" HorizontalAlignment="Left" Height="100" Margin="65,10,0,0" VerticalAlignment="Top" Width="100" Source="$PSScriptRoot\Sonya-Swarm-Poop.ico" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="PlainText" HorizontalAlignment="Left" Margin="35,110,0,0" TextWrapping="Wrap" Text="SHITBOX UI 2.0" VerticalAlignment="Top" Height="49" Width="179" Grid.ColumnSpan="2" FontSize="24"/>
-        <Button x:Name="Button1" Content="Button1" HorizontalAlignment="Left" Margin="70,176,0,0" VerticalAlignment="Top" Width="88" Grid.ColumnSpan="2"/>
+        <Button x:Name="Button1" Content="Get-SystemInfo" HorizontalAlignment="Left" Margin="70,176,0,0" VerticalAlignment="Top" Width="88" Grid.ColumnSpan="2"/>
         <Button x:Name="MusBut" Content="Stop" HorizontalAlignment="Left" Margin="39,270,0,0" VerticalAlignment="Top" Width="31" Grid.Column="1"/>
         <Button x:Name="Button2" Content="Button2" Margin="70,201,0,0" Width="88" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button x:Name="MusButP" Content="Play" HorizontalAlignment="Left" Margin="70,270,0,0" VerticalAlignment="Top" Width="31" Grid.ColumnSpan="2"/>
