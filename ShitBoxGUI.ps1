@@ -189,7 +189,8 @@ $WPFMusButP.Add_Click(
 
 $WPFButton1.Add_Click(
 {
-    
+$Computer = [Microsoft.VisualBasic.Interaction]::InputBox('ComputerName')  
+    Get-SystemInfo -ComputerName $Computer      
         }
     )
 
