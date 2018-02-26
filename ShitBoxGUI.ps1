@@ -20,7 +20,7 @@ $inputXML = @"
             <ColumnDefinition Width="195*"/>
             <ColumnDefinition Width="322*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="UIPicture" HorizontalAlignment="Left" Height="100" Margin="65,10,0,0" VerticalAlignment="Top" Width="100" Source="C:\Users\micro\Documents\GitHub\ShitBox-UI\Sonya-Swarm-Poop.ico" Grid.ColumnSpan="2"/>
+        <Image x:Name="UIPicture" HorizontalAlignment="Left" Height="100" Margin="65,10,0,0" VerticalAlignment="Top" Width="100" Source="$PSScriptRoot\Sonya-Swarm-Poop.ico" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="PlainText" HorizontalAlignment="Left" Margin="35,110,0,0" TextWrapping="Wrap" Text="SHITBOX UI 2.0" VerticalAlignment="Top" Height="49" Width="179" Grid.ColumnSpan="2" FontSize="24"/>
         <Button x:Name="Button1" Content="Button1" HorizontalAlignment="Left" Margin="70,176,0,0" VerticalAlignment="Top" Width="88" Grid.ColumnSpan="2"/>
         <Button x:Name="MusBut" Content="Stop" HorizontalAlignment="Left" Margin="39,270,0,0" VerticalAlignment="Top" Width="31" Grid.Column="1"/>
@@ -119,7 +119,7 @@ Get-FormVariables | Out-Null
 # Must be after XML Code
         
 $MusicPlayer = new-Object System.Media.SoundPlayer;
-$MusicPlayer.SoundLocation="C:\Users\micro\Documents\GitHub\ShitBox-UI\CORE_SHITBOXUI.wav";
+$MusicPlayer.SoundLocation="$PSScriptRoot\CORE_SHITBOXUI.wav";
 $MusicPlayer.PlayLooping()
 $flag=$false;
 $WPFUIMusStat.Text = "🔊"
