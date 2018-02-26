@@ -26,7 +26,7 @@ $inputXML = @"
         <Button x:Name="MusBut" Content="Stop" HorizontalAlignment="Left" Margin="39,270,0,0" VerticalAlignment="Top" Width="31" Grid.Column="1"/>
         <Button x:Name="Button2" Content="Button2" Margin="70,201,0,0" Width="88" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button x:Name="MusButP" Content="Play" HorizontalAlignment="Left" Margin="70,270,0,0" VerticalAlignment="Top" Width="31" Grid.ColumnSpan="2"/>
-        <Label Content="© ShitBox Crew 2018" HorizontalAlignment="Left" Margin="52,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.3,-0.025" Grid.ColumnSpan="2" Width="132" Height="29"/>
+        <Label Content="© ShitBox Crew 2018 💩" HorizontalAlignment="Left" Margin="52,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.3,-0.025" Grid.ColumnSpan="2" Width="132" Height="29"/>
         <TextBlock x:Name="UIMusStat" HorizontalAlignment="Left" Margin="18,272,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Column="1"/>
         <TextBlock x:Name="UIWELC" HorizontalAlignment="Left" Margin="45,146,0,0" TextWrapping="Wrap" Text="Welcome:" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="179"/>
 
