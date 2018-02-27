@@ -95,27 +95,33 @@ Function Get-SystemInfo {
 
         # Starting Ping to check if computer is online:
         $IsServerOnline = Test-Connection -ComputerName $ComputerName -BufferSize 16 -Count 1 -ea 0 -quiet
-        Write-Debug "Is server online?: $($IsServerOnline)"
+        Write-Debug "Is machine online?: $($IsServerOnline)"
 
         If ($IsServerOnline -eq 'True'){
-        Write-Debug "Gathering systeminfo to variables"
+        Write-Debug "Check if machine has WSman for interaction via powershell over net"
+        $WSMan = Test-WSMan -ComputerName $ComputerName
+            
+            if ($WSMan -ne $null){
 
-        $SystemInfo = Get-WmiObject win32_operatingsystem -ComputerName $ComputerName
-        $Uptime = (Get-Date) - ($SystemInfo.ConvertToDateTime($SystemInfo.lastbootuptime))
-        $MemoryUsage = Get-WmiObject Win32_Process -ComputerName $ComputerName | Sort WorkingSetSize -Descending | Select -First 5 | select ProcessName,ProcessId,@{n="MemoryUsage(MB)";Expression = {[Math]::Round(($_.WS / 1mb), 2)}}
-        $OS = Get-CimInstance -ComputerName $ComputerName -ClassName Win32_OperatingSystem  | select caption
+                Write-Debug "Gathering systeminfo to variables"
+                $SystemInfo = Get-WmiObject win32_operatingsystem -ComputerName $ComputerName
+                $Uptime = (Get-Date) - ($SystemInfo.ConvertToDateTime($SystemInfo.lastbootuptime))
+                $MemoryUsage = Get-WmiObject Win32_Process -ComputerName $ComputerName | Sort WorkingSetSize -Descending | Select -First 5 | select ProcessName,ProcessId,@{n="MemoryUsage(MB)";Expression = {[Math]::Round(($_.WS / 1mb), 2)}}
+                $OS = Get-CimInstance -ComputerName $ComputerName -ClassName Win32_OperatingSystem  | select caption
 
 
-        #DebugLog For Processed materials:
-        Write-Debug "Server has been up for: $($Uptime.Days) day(s) $($Uptime.Hours) hour(s) and $($Uptime.Seconds) second(s)"
-        Write-Debug "Listing top used processes in terms of memory"
-        $MemoryUsage
-        Write-Debug "OS:$($OS.caption)"
+                #DebugLog For Processed materials:
+                Write-Debug "Machine has been up for: $($Uptime.Days) day(s) $($Uptime.Hours) hour(s) and $($Uptime.Seconds) second(s)"
+                Write-Debug "Listing top used processes in terms of memory"
+                $MemoryUsage
+                Write-Debug "OS:$($OS.caption)"
+                }
+
 
         }
 
         else{
-        Write-Error "Machine is offline or unreachable"
+        Write-Error "Machine is offline, unreachable or does not support WS-man."
         }
 
 }
