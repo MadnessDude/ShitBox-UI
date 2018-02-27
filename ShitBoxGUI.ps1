@@ -29,11 +29,11 @@ $inputXML = @"
         <Label Content="© ShitBox Crew 2018 💩" HorizontalAlignment="Left" Margin="52,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.3,-0.025" Grid.ColumnSpan="2" Width="145" Height="29"/>
         <TextBlock x:Name="UIMusStat" HorizontalAlignment="Left" Margin="18,272,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Column="1"/>
         <TextBlock x:Name="UIWELC" HorizontalAlignment="Left" Margin="45,146,0,0" TextWrapping="Wrap" Text="Welcome:" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="179"/>
+        <Button x:Name="Button3" Content="Button3" Margin="70,226,0,0" Width="88" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
 
     </Grid>
 </Window>
-
 
 "@       
 
