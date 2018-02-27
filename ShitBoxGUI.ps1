@@ -189,6 +189,8 @@ $WPFMusButP.Add_Click(
 
 $WPFButton1.Add_Click(
 {
+#Support for button: 
+Add-Type -AssemblyName Microsoft.VisualBasic
 $Computer = [Microsoft.VisualBasic.Interaction]::InputBox('ComputerName')  
     Get-SystemInfo -ComputerName $Computer      
         }
