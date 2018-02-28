@@ -92,29 +92,40 @@ Function Get-SystemInfo {
 
     $DebugPreference = "Continue"
     
-
         # Starting Ping to check if computer is online:
         $IsServerOnline = Test-Connection -ComputerName $ComputerName -BufferSize 16 -Count 1 -ea 0 -quiet
-        Write-Debug "Is machine online?: $($IsServerOnline)"
 
         If ($IsServerOnline -eq 'True'){
-        Write-Debug "Check if machine has WSman for interaction via powershell over net"
         $WSMan = Test-WSMan -ComputerName $ComputerName
             
             if ($WSMan -ne $null){
 
-                Write-Debug "Gathering systeminfo to variables"
                 $SystemInfo = Get-WmiObject win32_operatingsystem -ComputerName $ComputerName
                 $Uptime = (Get-Date) - ($SystemInfo.ConvertToDateTime($SystemInfo.lastbootuptime))
                 $MemoryUsage = Get-WmiObject Win32_Process -ComputerName $ComputerName | Sort WorkingSetSize -Descending | Select -First 5 | select ProcessName,ProcessId,@{n="MemoryUsage(MB)";Expression = {[Math]::Round(($_.WS / 1mb), 2)}}
                 $OS = Get-CimInstance -ComputerName $ComputerName -ClassName Win32_OperatingSystem  | select caption
+                $DiskInfo = Invoke-Command -ComputerName $Computername -ScriptBlock {gwmi win32_logicaldisk | select DeviceId, @{n="Size";e={[math]::Round($_.Size/1GB,2)}},@{n="FreeSpace";e={[math]::Round($_.FreeSpace/1GB,2)}}}
+                $SharedFolders = Get-WmiObject -Class Win32_Share -ComputerName $ComputerName
 
+                #Printing out information i host:
+                Write-Host ""
+                Write-Host "Core information:" -ForegroundColor Magenta
+                Write-Host "System ComputerName: " -NoNewline 
+                Write-host "$($SystemInfo.PSComputerName)" -ForegroundColor White
+                Write-Host "Operating System: " -NoNewline
+                Write-host "$($OS.caption)" -ForegroundColor White
+                Write-Host "System uptime: " -NoNewline
+                Write-Host "$($Uptime.Days) day(s) $($Uptime.Hours) hour(s) and $($Uptime.Seconds) second(s)" -ForegroundColor White
+                Write-Host ""
+                Write-Host "Top 5 running processes:" -ForegroundColor Magenta
+                $MemoryUsage | ft
+                Write-Host ""
+                Write-Host "Disk Information:" -ForegroundColor Magenta
+                $DiskInfo | ft DeviceID,Size,FreeSpace
+                Write-Host ""
+                Write-Host "Shared folders:" -ForegroundColor Magenta
+                $SharedFolders | select Name, Path | Sort-Object Name
 
-                #DebugLog For Processed materials:
-                Write-Debug "Machine has been up for: $($Uptime.Days) day(s) $($Uptime.Hours) hour(s) and $($Uptime.Seconds) second(s)"
-                Write-Debug "Listing top used processes in terms of memory"
-                $MemoryUsage
-                Write-Debug "OS:$($OS.caption)"
                 }
 
 
