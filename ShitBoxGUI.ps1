@@ -100,18 +100,23 @@ Function Get-SystemInfo {
             
             if ($WSMan -ne $null){
 
-                $SystemInfo = Get-WmiObject win32_operatingsystem -ComputerName $ComputerName
+            #Gathering system information, and adding them to variables for output.
+                $SystemInfo = Get-WmiObject -Class Win32_Operatingsystem -ComputerName $ComputerName
+                $ComputerInfo = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName
                 $Uptime = (Get-Date) - ($SystemInfo.ConvertToDateTime($SystemInfo.lastbootuptime))
                 $MemoryUsage = Get-WmiObject Win32_Process -ComputerName $ComputerName | Sort WorkingSetSize -Descending | Select -First 5 | select ProcessName,ProcessId,@{n="MemoryUsage(MB)";Expression = {[Math]::Round(($_.WS / 1mb), 2)}}
                 $OS = Get-CimInstance -ComputerName $ComputerName -ClassName Win32_OperatingSystem  | select caption
                 $DiskInfo = Invoke-Command -ComputerName $Computername -ScriptBlock {gwmi win32_logicaldisk | select DeviceId, @{n="Size";e={[math]::Round($_.Size/1GB,2)}},@{n="FreeSpace";e={[math]::Round($_.FreeSpace/1GB,2)}}}
                 $SharedFolders = Get-WmiObject -Class Win32_Share -ComputerName $ComputerName
+                $UpdatesInstalled = Get-WmiObject -Class Win32_QuickFixEngineering -ComputerName $ComputerName | select -Last 5
 
                 #Printing out information i host:
                 Write-Host ""
                 Write-Host "Core information:" -ForegroundColor Magenta
                 Write-Host "System ComputerName: " -NoNewline 
                 Write-host "$($SystemInfo.PSComputerName)" -ForegroundColor White
+                Write-Host "Domain: " -NoNewline
+                Write-Host "$($ComputerInfo.Domain)" -ForegroundColor White
                 Write-Host "Operating System: " -NoNewline
                 Write-host "$($OS.caption)" -ForegroundColor White
                 Write-Host "System uptime: " -NoNewline
@@ -119,12 +124,18 @@ Function Get-SystemInfo {
                 Write-Host ""
                 Write-Host "Top 5 running processes:" -ForegroundColor Magenta
                 $MemoryUsage | ft
+
                 Write-Host ""
                 Write-Host "Disk Information:" -ForegroundColor Magenta
                 $DiskInfo | ft DeviceID,Size,FreeSpace
+
                 Write-Host ""
                 Write-Host "Shared folders:" -ForegroundColor Magenta
-                $SharedFolders | select Name, Path | Sort-Object Name
+                $SharedFolders | ft Name, Path
+
+                Write-Host ""
+                Write-Host "Last installed patches" -ForegroundColor Magenta
+                $UpdatesInstalled | ft Description, HotFixID, InstalledBy, InstalledOn
 
                 }
 
