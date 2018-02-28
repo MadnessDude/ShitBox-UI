@@ -104,6 +104,7 @@ Function Get-SystemInfo {
                 $SystemInfo = Get-WmiObject -Class Win32_Operatingsystem -ComputerName $ComputerName
                 $ComputerInfo = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName
                 $Uptime = (Get-Date) - ($SystemInfo.ConvertToDateTime($SystemInfo.lastbootuptime))
+                $IPConfig = Get-WmiObject -ComputerName $ComputerName Win32_NetworkAdapterConfiguration
                 $MemoryUsage = Get-WmiObject Win32_Process -ComputerName $ComputerName | Sort WorkingSetSize -Descending | Select -First 5 | select ProcessName,ProcessId,@{n="MemoryUsage(MB)";Expression = {[Math]::Round(($_.WS / 1mb), 2)}}
                 $OS = Get-CimInstance -ComputerName $ComputerName -ClassName Win32_OperatingSystem  | select caption
                 $DiskInfo = Invoke-Command -ComputerName $Computername -ScriptBlock {gwmi win32_logicaldisk | select DeviceId, @{n="Size";e={[math]::Round($_.Size/1GB,2)}},@{n="FreeSpace";e={[math]::Round($_.FreeSpace/1GB,2)}}}
@@ -121,6 +122,8 @@ Function Get-SystemInfo {
                 Write-host "$($OS.caption)" -ForegroundColor White
                 Write-Host "System uptime: " -NoNewline
                 Write-Host "$($Uptime.Days) day(s) $($Uptime.Hours) hour(s) and $($Uptime.Seconds) second(s)" -ForegroundColor White
+                Write-Host "IP4Configuration: " -NoNewline
+                Write-Host "$($IPConfig.IPAddress)" -ForegroundColor White
                 Write-Host ""
                 Write-Host "Top 5 running processes:" -ForegroundColor Magenta
                 $MemoryUsage | ft
