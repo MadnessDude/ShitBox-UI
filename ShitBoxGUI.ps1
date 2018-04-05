@@ -1,6 +1,6 @@
 ﻿# GitHub Sync
 # Added 26.02.18
-#
+# Created by Thomas L. and Trym S.
 
 # XML Raw Data Input:
 # Added 25.02.18
